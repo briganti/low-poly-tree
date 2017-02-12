@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 import * as ground from './ground.js';
 import * as sky from './sky.js';
 import * as treeGenerator from '../../src/main.js';

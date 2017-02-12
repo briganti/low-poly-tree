@@ -29,6 +29,9 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ minimize: true }),
+    new webpack.ProvidePlugin({
+      THREE: 'three',
+    }),
   ],
   resolve: {
     modules: [

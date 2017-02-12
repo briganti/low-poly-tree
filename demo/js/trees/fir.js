@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 function getRandomColorComponent(value, interval) {
   return value + Math.round((Math.random() - 0.5) * interval);
 }

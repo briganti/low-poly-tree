@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 const skyColor = (new THREE.Color()).setHSL(0.6, 1, 0.6);
 const groundColor = (new THREE.Color()).setHSL(0.095, 1, 0.75);
 

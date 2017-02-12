@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 
 const PLANE_SEGMENTS_X = 128;
 const PLANE_SEGMENTS_Z = 128;
