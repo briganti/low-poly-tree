@@ -13,6 +13,7 @@
     "node": "6"
   },
   "dependencies": {
+    "domready": "^1.0.8",
     "three": "^0.84",
     "three-orbit-controls": "^82.1.0"
   },
@@ -21,10 +22,12 @@
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.5.0",
-    "domready": "^1.0.8",
     "eslint": "^3.14.1",
-    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-config-standard": "^7.1.0",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
     "json-loader": "^0.5.4",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^1.14.1"

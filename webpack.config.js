@@ -1,10 +1,10 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
 
 const PATHS = {
   demo: path.join(__dirname, 'demo', 'js', 'main.js'),
   build: path.join(__dirname),
-};
+}
 
 module.exports = {
   entry: {
@@ -38,5 +38,8 @@ module.exports = {
       __dirname,
       'node_modules',
     ],
+    alias: {
+      demo: 'demo/js',
+    },
   },
-};
+}

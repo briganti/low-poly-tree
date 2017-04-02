@@ -1,30 +1,44 @@
+import * as color from 'demo/colors'
 
-const PLANE_SEGMENTS_X = 128;
-const PLANE_SEGMENTS_Z = 128;
+const PLANE_X = 15000
+const PLANE_Y = 15000
+const PLANE_SEGMENTS_X = 64
+const PLANE_SEGMENTS_Y = 64
 
-const planeGeo = new THREE.PlaneGeometry(1, 1, PLANE_SEGMENTS_X, PLANE_SEGMENTS_Z);
+const planeGeo = new THREE.PlaneGeometry(PLANE_X, PLANE_Y, PLANE_SEGMENTS_X, PLANE_SEGMENTS_Y)
 const planeMat = new THREE.MeshPhongMaterial({
-  color: 0x3c4c12,
+  color: color.paper,
   shading: THREE.FlatShading,
-  side: THREE.DoubleSide,
-});
+  shininess: 0,
+})
 
-let index = 0;
-for (let z = 0; z <= PLANE_SEGMENTS_Z; z++) {
-  for (let x = 0; x <= PLANE_SEGMENTS_X; x++) {
-    planeGeo.vertices[index].z = getYCoordinate(x, z);
-    index++;
-  }
+function noise() {
+  const plusOrMinus = (Math.random() * 2) - 1
+  const scale = 30
+
+  return plusOrMinus * scale
 }
 
-export const mesh = new THREE.Mesh(planeGeo, planeMat);
+export function getYCoordinate(x, y) {
+  const xOnPlaneSegmentX = x / PLANE_SEGMENTS_X
+  const yOnPlaneSegmentY = y / PLANE_SEGMENTS_Y
 
-export function getYCoordinate(x, z) {
-  return Math.cos(z / PLANE_SEGMENTS_Z * 16) *
-    Math.cos(x / PLANE_SEGMENTS_X * 8) *
-    2000 *
-    (1 - x / PLANE_SEGMENTS_X) *
-    (x / PLANE_SEGMENTS_X) *
-    (1 - z / PLANE_SEGMENTS_Z) *
-    (z / PLANE_SEGMENTS_Z);
+  return (
+    Math.cos(yOnPlaneSegmentY * 16) *
+    Math.cos(xOnPlaneSegmentX * 8) *
+    (1 - xOnPlaneSegmentX) * xOnPlaneSegmentX *
+    (1 - yOnPlaneSegmentY) * yOnPlaneSegmentY *
+    8000
+  ) + noise()
 }
+
+planeGeo.vertices.forEach((vertice, index) => {
+  const x = Math.floor(index / (PLANE_SEGMENTS_Y + 1))
+  const y = index % (PLANE_SEGMENTS_X + 1)
+
+  vertice.setZ(getYCoordinate(x, y))
+})
+
+planeGeo.rotateX(-Math.PI / 2)
+
+export const mesh = new THREE.Mesh(planeGeo, planeMat)

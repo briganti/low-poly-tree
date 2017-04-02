@@ -1,7 +1,14 @@
 module.exports = {
-  "extends": "airbnb-base",
-  "rules": {
-    "global-require": "off",
-    "import/no-unresolved": [2, { "commonjs": false }]
+  "env"     : {
+    "browser": true
+  },
+  "extends" : "standard",
+  "globals" : {
+    "THREE": false
+  },
+    "rules"   : {
+    "comma-dangle"                : ["error", "always-multiline"],
+    "space-before-function-paren" : ["error", "never"],
+    "sort-imports"                : ["error"],
   }
 };

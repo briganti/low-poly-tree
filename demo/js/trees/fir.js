@@ -1,26 +1,26 @@
-function getRandomColorComponent(value, interval) {
-  return value + Math.round((Math.random() - 0.5) * interval);
-}
+import * as color from 'demo/colors'
+import { plusOrMinus } from 'demo/utils'
 
 export default {
   trunk: {
     getMaterial() {
-      const color = `rgb(
-        ${getRandomColorComponent(56, 15)},
-        ${getRandomColorComponent(47, 15)},
-        ${getRandomColorComponent(36, 15)})`;
+      const trunkColor = `rgb(
+        ${color.getRandomIntervalValue(56, 15)},
+        ${color.getRandomIntervalValue(47, 15)},
+        ${color.getRandomIntervalValue(36, 15)})`
       return new THREE.MeshPhongMaterial({
-        color,
+        color: trunkColor,
         shading: THREE.FlatShading,
-      });
+        shininess: 0,
+      })
     },
-    getStages: () => Math.round(4 - 2 * Math.random()),
-    getAngle: () => 0.1 * (Math.random() * 2 - 1),
+    getStages: () => Math.round(9 - (2 * Math.random())),
+    getAngle: () => plusOrMinus() * 0.1,
     getWidth(trunkStage) {
-      return Math.pow(0.66, trunkStage - 1) * 6;
+      return (0.66 ** (trunkStage - 1)) * 6
     },
     getHeight(trunkStage) {
-      return (Math.pow(0.8, trunkStage - 1) + (Math.random() * 0.2)) * 45;
+      return ((0.8 ** (trunkStage - 1)) + (Math.random() * 0.2)) * (trunkStage === 1 ? 40 : 30)
     },
   },
   branches: {
@@ -28,19 +28,29 @@ export default {
     getNumberPerBranchStage: () => 0,
   },
   leaves: {
-    type: 'cone',
     getMaterial() {
-      const color = `rgb(
-        ${getRandomColorComponent(28, 10)},
-        ${getRandomColorComponent(73, 10)},
-        ${getRandomColorComponent(22, 10)})`;
+      // const color = `rgb(
+      //   ${color.getRandomIntervalValue(28, 10)},
+      //   ${color.getRandomIntervalValue(73, 10)},
+      //   ${color.getRandomIntervalValue(22, 10)})`;
       return new THREE.MeshPhongMaterial({
-        color,
+        color: color.paper,
         shading: THREE.FlatShading,
-      });
+        shininess: 0,
+      })
     },
-    getAngle: () => 0,
-    getWidth: (trunkStage) => 10 + (10 - trunkStage * 2) * (5 + 0.5 * Math.random()),
-    getHeight: (trunkStage) => (Math.pow(0.2, trunkStage - 1) + 1) * 45,
+    getAngle() {
+      return {
+        x: plusOrMinus() * 0.1,
+        y: (Math.random() * Math.PI),
+        z: plusOrMinus() * 0.1,
+      }
+    },
+    getWidth(trunkStage) {
+      return (9 - trunkStage) * (4 + (Math.random() * 0.5))
+    },
+    getHeight(trunkStage) {
+      return ((0.7 ** trunkStage) + 0.8) * 8
+    },
   },
-};
+}
