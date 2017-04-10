@@ -16,7 +16,7 @@ let scene
 function addCameraControls() {
   // Add camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000)
-  camera.position.set(660, 600, 120)
+  camera.position.set(660, 3600, 120)
   camera.lookAt(new THREE.Vector3())
   // Controls
   const controls = new OrbitControls(camera)
@@ -49,10 +49,10 @@ function addLights() {
   scene.add(ambientLight)
   // Directional
   const light = new THREE.DirectionalLight(0xffffff, 1, 100)
-  light.position.set(-2000, 1200, -1600)
+  light.position.set(-4000, 1200, -1600)
   light.castShadow = true
   light.shadow = new THREE.LightShadow(
-    new THREE.OrthographicCamera(1500, -1500, 1500, -1000, 2000, 4500),
+    new THREE.OrthographicCamera(2000, -2000, 1500, -1000, 2000, 7000),
   )
   // Fix issue with shadow rendering
   // https://github.com/mrdoob/three.js/issues/8692
@@ -78,19 +78,22 @@ domready(() => {
 
   scene = new THREE.Scene()
 
-  scene.fog = new THREE.Fog(0xffffff, 1500, 4000)
+  scene.fog = new THREE.Fog(0xffffff, 4500, 6500)
   scene.fog.color.setHSL(0.6, 0, 1)
 
   // Add sky
   addSky()
   // Add ground
   const plane = addGround()
+  plane.receiveShadow = true
+  plane.castShadow = true
+
   // Lighting
   addLights()
 
   // Add trees
   treeGenerator.forest(scene, 100, treeOakParams, ground.getYCoordinate, plane)
-  treeGenerator.forest(scene, 400, treeFirParams, ground.getYCoordinate, plane)
+  treeGenerator.forest(scene, 200, treeFirParams, ground.getYCoordinate, plane)
 
   // Add camera/Controls
   addCameraControls()

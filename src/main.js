@@ -229,8 +229,8 @@ export function forest(scene, num, options, getYCoordinate, plane) {
     }
 
     // Positioning
-    const x = Math.random() * -3500 + 500 // (Math.random() * 2 - 1) * 1000
-    const z = Math.random() * -3500 + 500 // (Math.random() * 2 - 1) * 1000
+    const x = (Math.random() * 2 - 1) * 3000
+    const z = (Math.random() * 2 - 1) * 3000
     // const xOnPlane = Math.round((x + 7500) / 15000 * PLANE_SEGMENTS_X);
     // const zOnPlane = Math.round((z + 7500) / 15000 * PLANE_SEGMENTS_Z);
     let y = 1000 // getYCoordinate(xOnPlane, zOnPlane) - 0.2 +20;
