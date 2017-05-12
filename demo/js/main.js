@@ -13,6 +13,8 @@ let camera
 let renderer
 let scene
 
+let clock = 0
+
 function addCameraControls() {
   // Add camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000)
@@ -66,9 +68,13 @@ function addLights() {
 }
 
 function render() {
+  const step = (clock / 60) % 1
+
+  sky.render(step)
   stats.begin()
   renderer.render(scene, camera)
   stats.end()
+
   // requestAnimationFrame(render)
 }
 
@@ -101,9 +107,28 @@ domready(() => {
   renderer = new THREE.WebGLRenderer({ antialias: true })
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
-  renderer.setSize(800, 600)
+  renderer.setSize(1200, 600)
 
   document.body.appendChild(renderer.domElement)
+
+  // Controls
+  const domPrevClockButton = document.createElement('input')
+  domPrevClockButton.type = 'button'
+  domPrevClockButton.value = 'prev'
+  domPrevClockButton.addEventListener('click', () => { 
+    clock--
+    render()
+  })
+  document.body.appendChild(domPrevClockButton)
+
+  const domNextClockButton = document.createElement('input')
+  domNextClockButton.type = 'button'
+  domNextClockButton.value = 'next'
+  domNextClockButton.addEventListener('click', () => { 
+    clock++
+    render()
+  })
+  document.body.appendChild(domNextClockButton)
 
   render()
 })
