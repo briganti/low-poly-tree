@@ -1,6 +1,7 @@
 import * as ground from 'demo/ground'
 import * as light from 'demo/light'
 import * as sky from 'demo/sky'
+import * as sun from 'demo/sun'
 import * as treeGenerator from 'src/main'
 import Stats from 'demo/stats.min'
 import domready from 'domready'
@@ -14,7 +15,6 @@ let camera
 let renderer
 let scene
 
-let sun
 let clock = 0
 
 function addCameraControls() {
@@ -29,6 +29,8 @@ function addCameraControls() {
 }
 
 function addSky() {
+  // Sun mesh
+  scene.add(sun.mesh)
   // Sky light
   sky.hemiLight.position.set(0, 500, 0)
   scene.add(sky.hemiLight)
@@ -63,7 +65,8 @@ function render() {
 
   sky.render(step)
   light.render(step)
-
+  sun.render(step)
+  
   renderer.render(scene, camera)
   stats.end()
 
