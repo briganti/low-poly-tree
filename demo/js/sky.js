@@ -6,11 +6,11 @@ const dayGradient = [0x66a6ff, 0x89f7fe]
 
 const skyTimeGradients = {
   '0'   : nightGradient,
-  '0.2' : nightGradient,
-  '0.4' : morningGradient,
-  '0.5' : dayGradient,
+  '0.15' : nightGradient,
+  '0.3' : morningGradient,
+  '0.4' : dayGradient,
   '0.7' : dayGradient,
-  '0.9' : nightGradient,
+  '0.85' : nightGradient,
   '1'   : nightGradient,
 }
 

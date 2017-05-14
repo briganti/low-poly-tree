@@ -1,4 +1,5 @@
 import * as ground from 'demo/ground'
+import * as light from 'demo/light'
 import * as sky from 'demo/sky'
 import * as treeGenerator from 'src/main'
 import Stats from 'demo/stats.min'
@@ -13,11 +14,12 @@ let camera
 let renderer
 let scene
 
+let sun
 let clock = 0
 
 function addCameraControls() {
   // Add camera
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000)
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000000)
   camera.position.set(660, 3600, 120)
   camera.lookAt(new THREE.Vector3())
   // Controls
@@ -46,32 +48,22 @@ function addGround() {
 }
 
 function addLights() {
-  // Ambient
-  const ambientLight = new THREE.AmbientLight(0x606060)
-  scene.add(ambientLight)
-  // Directional
-  const light = new THREE.DirectionalLight(0xffffff, 1, 100)
-  light.position.set(-4000, 1200, -1600)
-  light.castShadow = true
-  light.shadow = new THREE.LightShadow(
-    new THREE.OrthographicCamera(2000, -2000, 1500, -1000, 2000, 7000),
-  )
-  // Fix issue with shadow rendering
-  // https://github.com/mrdoob/three.js/issues/8692
-  light.shadow.bias = -0.001
-  light.shadow.mapSize.width = 4096
-  light.shadow.mapSize.height = 4096
-  scene.add(light)
+  scene.add(light.ambientLight)  
+  scene.add(light.directionnalLight)
 
-  const helper = new THREE.CameraHelper(light.shadow.camera)
+  // Helper camera
+  const helper = new THREE.CameraHelper(light.directionnalLight.shadow.camera)
   scene.add(helper)
 }
 
 function render() {
   const step = (clock / 60) % 1
 
-  sky.render(step)
   stats.begin()
+
+  sky.render(step)
+  light.render(step)
+
   renderer.render(scene, camera)
   stats.end()
 
@@ -112,11 +104,16 @@ domready(() => {
   document.body.appendChild(renderer.domElement)
 
   // Controls
+  const domClock = document.createElement('span')
+  domClock.innerHTML = clock
+  document.body.appendChild(domClock)
+
   const domPrevClockButton = document.createElement('input')
   domPrevClockButton.type = 'button'
   domPrevClockButton.value = 'prev'
   domPrevClockButton.addEventListener('click', () => { 
     clock--
+    domClock.innerHTML = clock
     render()
   })
   document.body.appendChild(domPrevClockButton)
@@ -126,6 +123,7 @@ domready(() => {
   domNextClockButton.value = 'next'
   domNextClockButton.addEventListener('click', () => { 
     clock++
+    domClock.innerHTML = clock
     render()
   })
   document.body.appendChild(domNextClockButton)
