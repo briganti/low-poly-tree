@@ -34,8 +34,6 @@ function addSky() {
   // Sky light
   sky.hemiLight.position.set(0, 500, 0)
   scene.add(sky.hemiLight)
-  // Fog
-  scene.fog.color.copy(new THREE.Color(0xffffff))
   // Mesh
   scene.add(sky.mesh)
 }
@@ -66,6 +64,8 @@ function render() {
   sky.render(step)
   light.render(step)
   sun.render(step)
+  // fog
+  scene.fog.color.copy(sky.mesh.material.uniforms.bottomColor.value)
   
   renderer.render(scene, camera)
   stats.end()

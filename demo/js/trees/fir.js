@@ -34,7 +34,7 @@ export default {
       //   ${color.getRandomIntervalValue(73, 10)},
       //   ${color.getRandomIntervalValue(22, 10)})`;
       return new THREE.MeshPhongMaterial({
-        color: color.paper,
+        color: new THREE.Color(0x41601d),
         shading: THREE.FlatShading,
         shininess: 0,
       })

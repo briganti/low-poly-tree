@@ -8,7 +8,7 @@ const PLANE_SEGMENTS_Y = 256
 
 const planeGeo = new THREE.PlaneBufferGeometry(PLANE_X, PLANE_Y, PLANE_SEGMENTS_X - 1, PLANE_SEGMENTS_Y - 1)
 const planeMat = new THREE.MeshPhongMaterial({
-  color: color.paper,
+  color: new THREE.Color(0x8cb45d),
   shading: THREE.FlatShading,
   shininess: 0,
 })

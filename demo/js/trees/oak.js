@@ -45,7 +45,7 @@ export default {
       //   ${getRandomColorComponent(145, 25)},
       //   ${getRandomColorComponent(47, 25)})`;
       return new THREE.MeshPhongMaterial({
-        color: color.paper,
+        color: new THREE.Color(0x86ba3b),
         shading: THREE.FlatShading,
         shininess: 0,
       })
