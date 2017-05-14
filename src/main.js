@@ -16,8 +16,8 @@ function createTrunkMesh(prevMesh, params) {
 
   // Adding noise to vertex
   for (const vertice of geometry.vertices) {
-    vertice.x -= (vertice.x / 1.5) * vertice.y * (0.6 + 0.4 * Math.random())
-    vertice.z -= (vertice.z / 1.5) * vertice.y * (0.6 + 0.4 * Math.random())
+    vertice.x -= vertice.x / 1.5 * vertice.y * (0.6 + 0.4 * Math.random())
+    vertice.z -= vertice.z / 1.5 * vertice.y * (0.6 + 0.4 * Math.random())
   }
 
   // Delete bottom face
@@ -32,9 +32,16 @@ function createTrunkMesh(prevMesh, params) {
 
   if (prevMesh) {
     // Positioning
-    mesh.position.x = prevMesh.position.x - prevMesh.scale.y * Math.sin(prevMesh.rotation.z)
-    mesh.position.y = prevMesh.position.y + prevMesh.scale.y * (Math.cos(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
-    mesh.position.z = prevMesh.position.z + prevMesh.scale.y * (Math.sin(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
+    mesh.position.x =
+      prevMesh.position.x - prevMesh.scale.y * Math.sin(prevMesh.rotation.z)
+    mesh.position.y =
+      prevMesh.position.y +
+      prevMesh.scale.y *
+        (Math.cos(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
+    mesh.position.z =
+      prevMesh.position.z +
+      prevMesh.scale.y *
+        (Math.sin(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
 
     // Rotation
     mesh.rotation.x = params.angle
@@ -53,8 +60,8 @@ function createBranchMesh(prevMesh, params) {
 
   // Adding noise to vertex
   for (const vertice of geometry.vertices) {
-    vertice.x -= (vertice.x / 1.5) * vertice.y * (0.6 + 0.4 * Math.random())
-    vertice.z -= (vertice.z / 1.5) * vertice.y * (0.6 + 0.4 * Math.random())
+    vertice.x -= vertice.x / 1.5 * vertice.y * (0.6 + 0.4 * Math.random())
+    vertice.z -= vertice.z / 1.5 * vertice.y * (0.6 + 0.4 * Math.random())
   }
 
   // Delete bottom face
@@ -68,9 +75,16 @@ function createBranchMesh(prevMesh, params) {
   mesh.scale.z = params.width
 
   // Positioning
-  mesh.position.x = prevMesh.position.x - prevMesh.scale.y * Math.sin(prevMesh.rotation.z)
-  mesh.position.y = prevMesh.position.y + prevMesh.scale.y * (Math.cos(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
-  mesh.position.z = prevMesh.position.z + prevMesh.scale.y * (Math.sin(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
+  mesh.position.x =
+    prevMesh.position.x - prevMesh.scale.y * Math.sin(prevMesh.rotation.z)
+  mesh.position.y =
+    prevMesh.position.y +
+    prevMesh.scale.y *
+      (Math.cos(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
+  mesh.position.z =
+    prevMesh.position.z +
+    prevMesh.scale.y *
+      (Math.sin(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
 
   // Rotation
   mesh.rotation.x = params.angleX + prevMesh.rotation.x
@@ -108,9 +122,16 @@ function createLeaves(trunkStage, prevMesh = null, options, params) {
 
   // Positioning
   if (prevMesh) {
-    mesh.position.x = prevMesh.position.x - prevMesh.scale.y * Math.sin(prevMesh.rotation.z)
-    mesh.position.y = prevMesh.position.y + prevMesh.scale.y * (Math.cos(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
-    mesh.position.z = prevMesh.position.z + prevMesh.scale.y * (Math.sin(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
+    mesh.position.x =
+      prevMesh.position.x - prevMesh.scale.y * Math.sin(prevMesh.rotation.z)
+    mesh.position.y =
+      prevMesh.position.y +
+      prevMesh.scale.y *
+        (Math.cos(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
+    mesh.position.z =
+      prevMesh.position.z +
+      prevMesh.scale.y *
+        (Math.sin(prevMesh.rotation.x) * Math.cos(prevMesh.rotation.z))
   }
 
   // Scaling
@@ -139,7 +160,10 @@ function createBranch(trunkStage, branchStage, prevMesh, options) {
   })
   meshesTrees.push(branchMesh)
 
-  const nbBranches = options.branches.getNumberPerBranchStage(trunkStage, branchStage)
+  const nbBranches = options.branches.getNumberPerBranchStage(
+    trunkStage,
+    branchStage
+  )
   for (let j = 0; j < nbBranches; j++) {
     if (branchStage < options.branches.getStages(trunkStage)) {
       createBranch(trunkStage, branchStage + 1, branchMesh, options)
@@ -148,12 +172,14 @@ function createBranch(trunkStage, branchStage, prevMesh, options) {
   }
 
   if (branchEnded) {
-    meshesLeafs.push(createLeaves(trunkStage, branchMesh, options, {
-      type: options.leaves.type,
-      width: options.leaves.getWidth(trunkStage),
-      height: options.leaves.getHeight(trunkStage),
-      angle: options.leaves.getAngle(),
-    }))
+    meshesLeafs.push(
+      createLeaves(trunkStage, branchMesh, options, {
+        type: options.leaves.type,
+        width: options.leaves.getWidth(trunkStage),
+        height: options.leaves.getHeight(trunkStage),
+        angle: options.leaves.getAngle(),
+      })
+    )
   }
 }
 
@@ -171,12 +197,14 @@ function createTrunk(currentStage, maxStage, prevMesh = null, options) {
       createBranch(currentStage, 1, trunkMesh, options)
     }
   } else {
-    meshesLeafs.push(createLeaves(currentStage, trunkMesh, options, {
-      type: options.leaves.type,
-      width: options.leaves.getWidth(currentStage),
-      height: options.leaves.getHeight(currentStage),
-      angle: options.leaves.getAngle(),
-    }))
+    meshesLeafs.push(
+      createLeaves(currentStage, trunkMesh, options, {
+        type: options.leaves.type,
+        width: options.leaves.getWidth(currentStage),
+        height: options.leaves.getHeight(currentStage),
+        angle: options.leaves.getAngle(),
+      })
+    )
   }
 
   if (currentStage < maxStage) {
@@ -249,8 +277,14 @@ export function forest(scene, num, options, getYCoordinate, plane) {
     // scene.add(line);
 
     // Raycaster
-    const meshTrees = new THREE.Mesh(singleTreesGeometry, treeParam.trunk.getMaterial())
-    caster.set(new THREE.Vector3(x, y, z), new THREE.Vector3(0, -1, 0).normalize())
+    const meshTrees = new THREE.Mesh(
+      singleTreesGeometry,
+      treeParam.trunk.getMaterial()
+    )
+    caster.set(
+      new THREE.Vector3(x, y, z),
+      new THREE.Vector3(0, -1, 0).normalize()
+    )
     const intersects = caster.intersectObject(plane)
 
     if (intersects.length) {
@@ -271,7 +305,10 @@ export function forest(scene, num, options, getYCoordinate, plane) {
     meshes = addMeshes(scene, meshTrees, x, y, z, scale)
     scene.add(meshes)
 
-    const meshLeafs = new THREE.Mesh(singleLeavesGeometry, treeParam.leaves.getMaterial())
+    const meshLeafs = new THREE.Mesh(
+      singleLeavesGeometry,
+      treeParam.leaves.getMaterial()
+    )
     meshes = addMeshes(scene, meshLeafs, x, y, z, scale)
     scene.add(meshes)
   }

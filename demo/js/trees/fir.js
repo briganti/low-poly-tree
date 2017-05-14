@@ -14,13 +14,16 @@ export default {
         shininess: 0,
       })
     },
-    getStages: () => Math.round(9 - (2 * Math.random())),
+    getStages: () => Math.round(9 - 2 * Math.random()),
     getAngle: () => plusOrMinus() * 0.1,
     getWidth(trunkStage) {
-      return (0.66 ** (trunkStage - 1)) * 6
+      return 0.66 ** (trunkStage - 1) * 6
     },
     getHeight(trunkStage) {
-      return ((0.8 ** (trunkStage - 1)) + (Math.random() * 0.2)) * (trunkStage === 1 ? 40 : 30)
+      return (
+        (0.8 ** (trunkStage - 1) + Math.random() * 0.2) *
+        (trunkStage === 1 ? 40 : 30)
+      )
     },
   },
   branches: {
@@ -42,15 +45,15 @@ export default {
     getAngle() {
       return {
         x: plusOrMinus() * 0.1,
-        y: (Math.random() * Math.PI),
+        y: Math.random() * Math.PI,
         z: plusOrMinus() * 0.1,
       }
     },
     getWidth(trunkStage) {
-      return (9 - trunkStage) * (4 + (Math.random() * 0.5))
+      return (9 - trunkStage) * (4 + Math.random() * 0.5)
     },
     getHeight(trunkStage) {
-      return ((0.7 ** trunkStage) + 0.8) * 8
+      return (0.7 ** trunkStage + 0.8) * 8
     },
   },
 }

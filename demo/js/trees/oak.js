@@ -23,19 +23,20 @@ export default {
       return Math.pow(0.66, trunkStage - 1) * 10
     },
     getHeight(trunkStage) {
-      return (Math.pow(0.8, trunkStage - 1) + (Math.random() * 0.2)) * 35
+      return (Math.pow(0.8, trunkStage - 1) + Math.random() * 0.2) * 35
     },
   },
   branches: {
-    getNumberPerTrunkStage: (trunkStage) => Math.round(3 + Math.random()),
-    getNumberPerBranchStage: (trunkStage, branchStage) => Math.round(2.2 + Math.random()),
-    getStages: (trunkStage) => Math.min(3 - trunkStage, trunkStage) + 1,
+    getNumberPerTrunkStage: trunkStage => Math.round(3 + Math.random()),
+    getNumberPerBranchStage: (trunkStage, branchStage) =>
+      Math.round(2.2 + Math.random()),
+    getStages: trunkStage => Math.min(3 - trunkStage, trunkStage) + 1,
     getAngle: () => Math.PI / 4 * (Math.random() * 2 - 1),
     getWidth(trunkStage, branchStage) {
       return Math.pow(0.66, trunkStage + branchStage) * 10
     },
     getHeight(branchStage) {
-      return (Math.pow(0.8, branchStage) + (Math.random() * 0.2)) * 35
+      return (Math.pow(0.8, branchStage) + Math.random() * 0.2) * 35
     },
   },
   leaves: {
@@ -52,11 +53,11 @@ export default {
     },
     getAngle() {
       return {
-        x: (Math.random() * Math.PI),
-        z: (Math.random() * Math.PI),
+        x: Math.random() * Math.PI,
+        z: Math.random() * Math.PI,
       }
     },
-    getWidth: (trunkStage) => 10 + (4 - trunkStage) * (3 + 0.5 * Math.random()),
-    getHeight: (trunkStage) => 6 + (4 - trunkStage) * (2 + 0.5 * Math.random()),
+    getWidth: trunkStage => 10 + (4 - trunkStage) * (3 + 0.5 * Math.random()),
+    getHeight: trunkStage => 6 + (4 - trunkStage) * (2 + 0.5 * Math.random()),
   },
 }

@@ -1,21 +1,21 @@
 import * as color from 'demo/colors'
 
 const nightGradient = [0x1e3c72, 0x2a5298]
-const morningGradient = [0x20E2D7, 0xF9FEA5]
+const morningGradient = [0x20e2d7, 0xf9fea5]
 const dayGradient = [0x66a6ff, 0x89f7fe]
 
 const skyTimeGradients = {
-  '0'   : nightGradient,
-  '0.15' : nightGradient,
-  '0.3' : morningGradient,
-  '0.4' : dayGradient,
-  '0.7' : dayGradient,
-  '0.85' : nightGradient,
-  '1'   : nightGradient,
+  '0': nightGradient,
+  '0.15': nightGradient,
+  '0.3': morningGradient,
+  '0.4': dayGradient,
+  '0.7': dayGradient,
+  '0.85': nightGradient,
+  '1': nightGradient,
 }
 
-const skyColor = (new THREE.Color()).setHSL(0.6, 1, 0.6)
-const groundColor = (new THREE.Color()).setHSL(0.095, 1, 0.75)
+const skyColor = new THREE.Color().setHSL(0.6, 1, 0.6)
+const groundColor = new THREE.Color().setHSL(0.095, 1, 0.75)
 
 export const hemiLight = new THREE.HemisphereLight(skyColor, groundColor, 0)
 
@@ -45,24 +45,29 @@ function getSkyGradientRange(step) {
   const bestKey = skyTimeGradientsKeys.reduce((a, b) => {
     return b < step ? b : a
   })
-  const followingKey = skyTimeGradientsKeys.find((a) => a > bestKey) || skyTimeGradientsKeys[1]
+  const followingKey =
+    skyTimeGradientsKeys.find(a => a > bestKey) || skyTimeGradientsKeys[1]
 
-  return { from: bestKey, to: followingKey}
+  return { from: bestKey, to: followingKey }
 }
 
 export function render(step) {
   const gradients = getSkyGradientRange(step)
   const stepRatio = (step - gradients.from) / (gradients.to - gradients.from)
 
-  uniforms.topColor.value = new THREE.Color(color.getGetGradientColorForRatio(
-    skyTimeGradients[gradients.from][0],
-    skyTimeGradients[gradients.to][0],
-    stepRatio
-  ))
+  uniforms.topColor.value = new THREE.Color(
+    color.getGetGradientColorForRatio(
+      skyTimeGradients[gradients.from][0],
+      skyTimeGradients[gradients.to][0],
+      stepRatio
+    )
+  )
 
-  uniforms.bottomColor.value = new THREE.Color(color.getGetGradientColorForRatio(
-    skyTimeGradients[gradients.from][1],
-    skyTimeGradients[gradients.to][1],
-    stepRatio
-  ))
+  uniforms.bottomColor.value = new THREE.Color(
+    color.getGetGradientColorForRatio(
+      skyTimeGradients[gradients.from][1],
+      skyTimeGradients[gradients.to][1],
+      stepRatio
+    )
+  )
 }

@@ -19,7 +19,12 @@ let clock = 0
 
 function addCameraControls() {
   // Add camera
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000000)
+  camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    1,
+    2000000
+  )
   camera.position.set(660, 3600, 120)
   camera.lookAt(new THREE.Vector3())
   // Controls
@@ -48,7 +53,7 @@ function addGround() {
 }
 
 function addLights() {
-  scene.add(light.ambientLight)  
+  scene.add(light.ambientLight)
   scene.add(light.directionnalLight)
 
   // Helper camera
@@ -57,7 +62,7 @@ function addLights() {
 }
 
 function render() {
-  const step = (clock / 60) % 1
+  const step = clock / 60 % 1
 
   stats.begin()
 
@@ -66,7 +71,7 @@ function render() {
   sun.render(step)
   // fog
   scene.fog.color.copy(sky.mesh.material.uniforms.bottomColor.value)
-  
+
   renderer.render(scene, camera)
   stats.end()
 
@@ -114,7 +119,7 @@ domready(() => {
   const domPrevClockButton = document.createElement('input')
   domPrevClockButton.type = 'button'
   domPrevClockButton.value = 'prev'
-  domPrevClockButton.addEventListener('click', () => { 
+  domPrevClockButton.addEventListener('click', () => {
     clock--
     domClock.innerHTML = clock
     render()
@@ -124,7 +129,7 @@ domready(() => {
   const domNextClockButton = document.createElement('input')
   domNextClockButton.type = 'button'
   domNextClockButton.value = 'next'
-  domNextClockButton.addEventListener('click', () => { 
+  domNextClockButton.addEventListener('click', () => {
     clock++
     domClock.innerHTML = clock
     render()

@@ -1,3 +1,3 @@
 export function plusOrMinus() {
-  return ((Math.random() * 2) - 1)
+  return Math.random() * 2 - 1
 }

@@ -6,7 +6,12 @@ const PLANE_Y = 15000
 const PLANE_SEGMENTS_X = 256
 const PLANE_SEGMENTS_Y = 256
 
-const planeGeo = new THREE.PlaneBufferGeometry(PLANE_X, PLANE_Y, PLANE_SEGMENTS_X - 1, PLANE_SEGMENTS_Y - 1)
+const planeGeo = new THREE.PlaneBufferGeometry(
+  PLANE_X,
+  PLANE_Y,
+  PLANE_SEGMENTS_X - 1,
+  PLANE_SEGMENTS_Y - 1
+)
 const planeMat = new THREE.MeshPhongMaterial({
   color: new THREE.Color(0x8cb45d),
   shading: THREE.FlatShading,
@@ -24,7 +29,9 @@ function generateHeight(width, height) {
     for (let i = 0; i < size; i++) {
       const x = i % width
       const y = ~~(i / width)
-      data[i] += Math.abs(perlin.noise(x / quality, y / quality, z) * quality * 1.75)
+      data[i] += Math.abs(
+        perlin.noise(x / quality, y / quality, z) * quality * 1.75
+      )
     }
     quality *= 5
   }
@@ -34,7 +41,7 @@ function generateHeight(width, height) {
 const height = generateHeight(PLANE_SEGMENTS_X, PLANE_SEGMENTS_Y)
 
 function noise() {
-  const plusOrMinus = (Math.random() * 2) - 1
+  const plusOrMinus = Math.random() * 2 - 1
   const scale = 30
 
   return plusOrMinus * scale
@@ -46,11 +53,14 @@ export function getYCoordinate(x, y) {
 
   return (
     Math.cos(yOnPlaneSegmentY * 16) *
-    Math.cos(xOnPlaneSegmentX * 8) *
-    (1 - xOnPlaneSegmentX) * xOnPlaneSegmentX *
-    (1 - yOnPlaneSegmentY) * yOnPlaneSegmentY *
-    8000
-  ) + noise()
+      Math.cos(xOnPlaneSegmentX * 8) *
+      (1 - xOnPlaneSegmentX) *
+      xOnPlaneSegmentX *
+      (1 - yOnPlaneSegmentY) *
+      yOnPlaneSegmentY *
+      8000 +
+    noise()
+  )
 }
 
 // planeGeo.vertices.forEach((vertice, index) => {
@@ -63,7 +73,7 @@ export function getYCoordinate(x, y) {
 planeGeo.rotateX(-Math.PI / 2)
 
 const vertices = planeGeo.attributes.position.array
-for (let i = 0, j = 0, l = vertices.length; i < l; i++, j += 3) {
+for (let i = 0, j = 0, l = vertices.length; i < l; i++, (j += 3)) {
   vertices[j + 1] = height[i] * 8
 }
 

@@ -18,6 +18,7 @@ function grad(hash, x, y, z) {
 
 export default class ImprovedNoise {
   constructor() {
+    // prettier-ignore
     this.p = [151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10,
       23, 190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57, 177, 33, 88, 237, 149, 56, 87,
       174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71, 134, 139, 48, 27, 166, 77, 146, 158, 231, 83, 111, 229, 122, 60, 211,
@@ -62,13 +63,30 @@ export default class ImprovedNoise {
     const BA = this.p[B] + Z
     const BB = this.p[B + 1] + Z
 
-    return lerp(w, lerp(v, lerp(u, grad(this.p[AA], x, y, z),
-            grad(this.p[BA], xMinus1, y, z)),
-          lerp(u, grad(this.p[AB], x, yMinus1, z),
-            grad(this.p[BB], xMinus1, yMinus1, z))),
-        lerp(v, lerp(u, grad(this.p[AA + 1], x, y, zMinus1),
-            grad(this.p[BA + 1], xMinus1, y, z - 1)),
-          lerp(u, grad(this.p[AB + 1], x, yMinus1, zMinus1),
-            grad(this.p[BB + 1], xMinus1, yMinus1, zMinus1))))
+    return lerp(
+      w,
+      lerp(
+        v,
+        lerp(u, grad(this.p[AA], x, y, z), grad(this.p[BA], xMinus1, y, z)),
+        lerp(
+          u,
+          grad(this.p[AB], x, yMinus1, z),
+          grad(this.p[BB], xMinus1, yMinus1, z)
+        )
+      ),
+      lerp(
+        v,
+        lerp(
+          u,
+          grad(this.p[AA + 1], x, y, zMinus1),
+          grad(this.p[BA + 1], xMinus1, y, z - 1)
+        ),
+        lerp(
+          u,
+          grad(this.p[AB + 1], x, yMinus1, zMinus1),
+          grad(this.p[BB + 1], xMinus1, yMinus1, zMinus1)
+        )
+      )
+    )
   }
 }
