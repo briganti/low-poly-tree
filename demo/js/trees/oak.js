@@ -1,3 +1,4 @@
+// @flow
 import * as color from 'demo/colors'
 
 function getRandomColorComponent(value, interval) {
@@ -19,23 +20,24 @@ export default {
     },
     getStages: () => 4,
     getAngle: () => 0.1 * (Math.random() * 2 - 1),
-    getWidth(trunkStage) {
+    getWidth(trunkStage: number) {
       return Math.pow(0.66, trunkStage - 1) * 10
     },
-    getHeight(trunkStage) {
+    getHeight(trunkStage: number) {
       return (Math.pow(0.8, trunkStage - 1) + Math.random() * 0.2) * 35
     },
   },
   branches: {
-    getNumberPerTrunkStage: trunkStage => Math.round(3 + Math.random()),
-    getNumberPerBranchStage: (trunkStage, branchStage) =>
+    getNumberPerTrunkStage: (trunkStage: number) =>
+      Math.round(3 + Math.random()),
+    getNumberPerBranchStage: (trunkStage: number, branchStage: number) =>
       Math.round(2.2 + Math.random()),
-    getStages: trunkStage => Math.min(3 - trunkStage, trunkStage) + 1,
+    getStages: (trunkStage: number) => Math.min(3 - trunkStage, trunkStage) + 1,
     getAngle: () => Math.PI / 4 * (Math.random() * 2 - 1),
-    getWidth(trunkStage, branchStage) {
+    getWidth(trunkStage: number, branchStage: number) {
       return Math.pow(0.66, trunkStage + branchStage) * 10
     },
-    getHeight(branchStage) {
+    getHeight(branchStage: number) {
       return (Math.pow(0.8, branchStage) + Math.random() * 0.2) * 35
     },
   },
@@ -57,7 +59,9 @@ export default {
         z: Math.random() * Math.PI,
       }
     },
-    getWidth: trunkStage => 10 + (4 - trunkStage) * (3 + 0.5 * Math.random()),
-    getHeight: trunkStage => 6 + (4 - trunkStage) * (2 + 0.5 * Math.random()),
+    getWidth: (trunkStage: number) =>
+      10 + (4 - trunkStage) * (3 + 0.5 * Math.random()),
+    getHeight: (trunkStage: number) =>
+      6 + (4 - trunkStage) * (2 + 0.5 * Math.random()),
   },
 }

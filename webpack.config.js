@@ -21,23 +21,24 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: __dirname,
+      {
+        test: __dirname,
         exclude: /(node_modules|asset)/,
         loader: 'babel-loader',
+        options: {
+          presets: ['flow'],
+        },
       },
     ],
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ minimize: true }),
     new webpack.ProvidePlugin({
-      THREE: 'three',
+      three: 'three',
     }),
   ],
   resolve: {
-    modules: [
-      __dirname,
-      'node_modules',
-    ],
+    modules: [__dirname, 'node_modules'],
     alias: {
       demo: 'demo/js',
     },

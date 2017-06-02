@@ -1,3 +1,4 @@
+// @flow
 const ambientIntensity = {
   '0': 0.05,
   '0.15': 0.05,
@@ -8,8 +9,10 @@ const ambientIntensity = {
   '1': 0.05,
 }
 
-export function getAmbientIntensity(step) {
-  const intensityKeys = Object.keys(ambientIntensity).sort()
+export function getAmbientIntensity(step: number) {
+  const intensityKeys = Object.keys(ambientIntensity)
+    .sort()
+    .map(a => parseInt(a))
 
   const beginKey = intensityKeys.reduce((a, b) => (b < step ? b : a))
   const endKey = intensityKeys.find(a => a > beginKey) || 0
@@ -37,7 +40,7 @@ directionnalLight.shadow.bias = -0.001
 directionnalLight.shadow.mapSize.width = 4096
 directionnalLight.shadow.mapSize.height = 4096
 
-export function render(step) {
+export function render(step: number) {
   ambientLight.intensity = getAmbientIntensity(step)
 
   directionnalLight.position.set(

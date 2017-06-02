@@ -1,3 +1,4 @@
+// @flow
 import * as color from 'demo/colors'
 import { plusOrMinus } from 'demo/utils'
 
@@ -16,10 +17,10 @@ export default {
     },
     getStages: () => Math.round(9 - 2 * Math.random()),
     getAngle: () => plusOrMinus() * 0.1,
-    getWidth(trunkStage) {
+    getWidth(trunkStage: number) {
       return 0.66 ** (trunkStage - 1) * 6
     },
-    getHeight(trunkStage) {
+    getHeight(trunkStage: number) {
       return (
         (0.8 ** (trunkStage - 1) + Math.random() * 0.2) *
         (trunkStage === 1 ? 40 : 30)
@@ -49,10 +50,10 @@ export default {
         z: plusOrMinus() * 0.1,
       }
     },
-    getWidth(trunkStage) {
+    getWidth(trunkStage: number) {
       return (9 - trunkStage) * (4 + Math.random() * 0.5)
     },
-    getHeight(trunkStage) {
+    getHeight(trunkStage: number) {
       return (0.7 ** trunkStage + 0.8) * 8
     },
   },

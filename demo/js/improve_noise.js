@@ -1,5 +1,5 @@
+// @flow
 // http://mrl.nyu.edu/~perlin/noise/
-
 function fade(t) {
   return t * t * t * (t * (t * 6 - 15) + 10)
 }
@@ -16,7 +16,10 @@ function grad(hash, x, y, z) {
   return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v)
 }
 
-export default class ImprovedNoise {
+export default class improveNoise {
+  // Flow type definitions
+  p: Array<number>
+
   constructor() {
     // prettier-ignore
     this.p = [151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10,
@@ -35,7 +38,7 @@ export default class ImprovedNoise {
     }
   }
 
-  noise(x, y, z) {
+  noise(x: number, y: number, z: number) {
     const floorX = Math.floor(x)
     const floorY = Math.floor(y)
     const floorZ = Math.floor(z)

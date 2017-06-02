@@ -1,9 +1,10 @@
+// @flow
 import * as ground from 'demo/ground'
 import * as light from 'demo/light'
 import * as sky from 'demo/sky'
 import * as sun from 'demo/sun'
 import * as treeGenerator from 'src/main'
-import Stats from 'demo/stats.min'
+import Stats from 'vendors/stats.min'
 import domready from 'domready'
 import treeFirParams from 'demo/trees/fir'
 import treeOakParams from 'demo/trees/oak'

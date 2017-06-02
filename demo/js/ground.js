@@ -1,3 +1,4 @@
+// @flow
 import * as color from 'demo/colors'
 import ImprovedNoise from 'demo/improve_noise'
 
@@ -47,7 +48,7 @@ function noise() {
   return plusOrMinus * scale
 }
 
-export function getYCoordinate(x, y) {
+export function getYCoordinate(x: number, y: number) {
   const xOnPlaneSegmentX = x / PLANE_SEGMENTS_X
   const yOnPlaneSegmentY = y / PLANE_SEGMENTS_Y
 

@@ -1,3 +1,4 @@
+// flow
 import * as color from 'demo/colors'
 
 const nightGradient = [0x1e3c72, 0x2a5298]
@@ -39,8 +40,10 @@ const skyMat = new THREE.ShaderMaterial({
 
 export const mesh = new THREE.Mesh(skyGeo, skyMat)
 
-function getSkyGradientRange(step) {
-  const skyTimeGradientsKeys = Object.keys(skyTimeGradients).sort()
+function getSkyGradientRange(step: number) {
+  const skyTimeGradientsKeys = Object.keys(skyTimeGradients)
+    .sort()
+    .map(a => parseInt(a))
 
   const bestKey = skyTimeGradientsKeys.reduce((a, b) => {
     return b < step ? b : a
@@ -51,7 +54,7 @@ function getSkyGradientRange(step) {
   return { from: bestKey, to: followingKey }
 }
 
-export function render(step) {
+export function render(step: number) {
   const gradients = getSkyGradientRange(step)
   const stepRatio = (step - gradients.from) / (gradients.to - gradients.from)
 

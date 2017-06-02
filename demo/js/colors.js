@@ -1,3 +1,4 @@
+// @flow
 function hex(x) {
   x = x.toString(16)
   return x.length == 1 ? '0' + x : x
@@ -14,13 +15,17 @@ function hex2a(hexx) {
 
 export const paper = `rgb(${200}, ${200}, ${200})`
 
-export function getRandomIntervalValue(value, interval) {
+export function getRandomIntervalValue(value: number, interval: number) {
   return value + Math.round((Math.random() - 0.5) * interval)
 }
 
-export function getGetGradientColorForRatio(color1, color2, ratio) {
-  color1 = color1.toString(16)
-  color2 = color2.toString(16)
+export function getGetGradientColorForRatio(
+  hex1: number,
+  hex2: number,
+  ratio: number
+) {
+  const color1 = hex1.toString(16)
+  const color2 = hex2.toString(16)
 
   const r = Math.floor(
     parseInt(color2.substring(0, 2), 16) * ratio +

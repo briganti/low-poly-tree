@@ -4,13 +4,14 @@
   "description": "A low poly tree generator",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "flow": "flow",
     "precommit": "lint-staged",
-    "start": "node_modules/.bin/webpack-dev-server --inline --content-base demo/"
+    "start": "node_modules/.bin/webpack-dev-server --inline --content-base demo/",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
     "*.js": [
-      "prettier --single-quote --trailing-comma es5 --no-semi --write",
+      "prettier --single-quote --trailing-comma es5 --no-semi --write '!vendors/**/*.js'",
       "git add"
     ]
   },
@@ -25,16 +26,12 @@
     "three-orbit-controls": "^82.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.5.1",
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.5.0",
-    "eslint": "^3.14.1",
-    "eslint-config-standard": "^7.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^4.2.2",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^2.1.1",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.46.0",
     "husky": "^0.13.3",
     "json-loader": "^0.5.4",
     "lint-staged": "^3.4.1",

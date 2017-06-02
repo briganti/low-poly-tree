@@ -1,3 +1,4 @@
+// @flow
 import 'three/examples/js/geometries/ConvexGeometry.js'
 
 // const PLANE_SEGMENTS_X = 128;
@@ -229,7 +230,13 @@ function addMeshes(scene, meshes, x, y, z, scale) {
   return meshes
 }
 
-export function forest(scene, num, options, getYCoordinate, plane) {
+export function forest(
+  scene: Object,
+  num: number,
+  options: Object,
+  getYCoordinate: Function,
+  plane: Object
+) {
   const treeParam = Object.assign({}, options)
   console.log(options)
   const startTime = new Date()
